@@ -1,46 +1,25 @@
+import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import appLogoLight from "/appLogoLight.png";
+import appLogoDark from "/appLogoDark.png";
+import useTheme from "../../Hooks/useTheme/useTheme";
 
 const Navbar = () => {
-  console.log(document.documentElement.classList);
+  const { theme } = useTheme();
   const navItems = (
     <>
       <li>
-        <NavLink
-          to={"/"}
-          style={({ isActive }) => ({
-            color: "#000",
-            background: "#fbfbfe",
-            textDecoration: isActive ? "underline" : "none",
-          })}
-          className="font-bold"
-        >
+        <NavLink to={"/"} className="font-bold nav-link text-heading">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to={"/about"}
-          style={({ isActive }) => ({
-            color: "#000",
-            background: "#fbfbfe",
-            textDecoration: isActive ? "underline" : "none",
-          })}
-          className="font-bold"
-        >
+        <NavLink to={"/about"} className="font-bold nav-link text-heading">
           About
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to={"/contact"}
-          style={({ isActive }) => ({
-            color: "#000",
-            background: "#fbfbfe",
-            textDecoration: isActive ? "underline" : "none",
-          })}
-          className="font-bold"
-        >
+        <NavLink to={"/contact"} className="font-bold nav-link text-heading">
           Contact
         </NavLink>
       </li>
@@ -77,7 +56,7 @@ const Navbar = () => {
         <Link to={"/"} className="flex items-center">
           <img
             className="w-12 h-12 rounded-full"
-            src={appLogoLight}
+            src={theme === "dark" ? appLogoDark : appLogoLight}
             alt="logo"
           />
           <h1 className="text-xl text-heading font-bold hidden sm:block">
@@ -88,9 +67,12 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
-      <div className="navbar-end">
-        <Link to={"/login"} className="btn-primary">
+      <div className="navbar-end flex items-center gap-1">
+        <Link to={"/login"} className="btn-primary bg-black text-white">
           Login
+        </Link>
+        <Link to={"/register"} className="btn-primary hidden sm:block">
+          Register
         </Link>
       </div>
     </div>

@@ -1,0 +1,14 @@
+.nav-link {
+  text-decoration: none;
+  /* padding: 10px 15px; */
+  color: var(--heading) !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link.active {
+  background-color: transparent !important;
+  text-decoration: underline;
+}
