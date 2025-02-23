@@ -25,6 +25,9 @@
   .border-common {
     @apply border border-border;
   }
+  .border-bottom {
+    @apply border-common border-t-0 border-x-0;
+  }
   .btn-primary {
     @apply px-3 py-[6px] bg-[#010104] text-white border-common text-xs uppercase rounded-md transition;
   }

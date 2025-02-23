@@ -1,8 +1,9 @@
+import Slider from "./Slider/Slider";
+
 const HomePage = () => {
   return (
     <div>
-      <h1>HomePage</h1>
-      <button className="btn-primary">Toggle theme</button>
+      <Slider />
     </div>
   );
 };
