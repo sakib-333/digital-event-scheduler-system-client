@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --heading: rgb(0, 0, 0);
+    --text: rgba(0, 0, 0, 0.8);
+    --border: rgba(0, 0, 0, 0.1);
+    --background: #fbfbfe;
+    --primary: rgba(0, 0, 255, 0.8);
+    --accent: rgba(0, 0, 255, 0.6);
+  }
+  .dark {
+    --heading: rgb(255, 255, 255);
+    --text: rgba(255, 255, 255, 0.8);
+    --border: rgba(255, 255, 255, 0.3);
+    --background: #010104;
+    --primary: rgba(0, 0, 255, 0.8);
+    --accent: rgba(0, 0, 255, 0.6);
+  }
+}
+
+@layer base {
+  .btn-primary {
+    @apply bg-primary text-white px-5 py-2 uppercase rounded-md hover:bg-accent transition;
+  }
+}
