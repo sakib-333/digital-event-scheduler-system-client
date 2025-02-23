@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import useTheme from "../Hooks/useTheme/useTheme";
+import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {
   const { theme, setTheme } = useTheme();
@@ -26,9 +27,9 @@ const HomeLayout = () => {
   return (
     <div className="max-w-screen-2xl mx-auto">
       <Navbar />
-      <button className="btn-primary" onClick={hanleToggleTheme}>
-        Toggle theme
-      </button>
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 };
