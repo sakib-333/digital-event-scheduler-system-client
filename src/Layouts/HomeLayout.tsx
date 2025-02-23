@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import useTheme from "../Hooks/useTheme/useTheme";
 import { Outlet } from "react-router-dom";
+import { IoMdMoon } from "react-icons/io";
+import { IoSunnySharp } from "react-icons/io5";
 
 const HomeLayout = () => {
   const { theme, setTheme } = useTheme();
@@ -25,11 +27,17 @@ const HomeLayout = () => {
   };
 
   return (
-    <div className="max-w-screen-2xl mx-auto">
+    <div className="max-w-screen-2xl mx-auto relative">
       <Navbar />
-      <div>
+      <div className="bg-background min-h-screen">
         <Outlet />
       </div>
+      <button
+        className="w-8 h-8 rounded-full flex items-center justify-center text-text absolute border right-5 bottom-20 z-10"
+        onClick={hanleToggleTheme}
+      >
+        {theme === "light" ? <IoMdMoon /> : <IoSunnySharp />}
+      </button>
     </div>
   );
 };
