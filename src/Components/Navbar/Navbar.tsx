@@ -27,10 +27,14 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-background border-b border-border">
+    <div className="navbar bg-background border-common border-x-0 border-t-0">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost text-text lg:hidden"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -48,7 +52,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-background rounded-box z-[10] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-background border-common rounded-box z-[10] mt-3 w-52 p-2 shadow"
           >
             {navItems}
           </ul>
@@ -68,10 +72,13 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end flex items-center gap-1">
-        <Link to={"/login"} className="btn-primary bg-black text-white">
+        <Link to={"/login"} className="btn-primary bg-background text-heading">
           Login
         </Link>
-        <Link to={"/register"} className="btn-primary hidden sm:block">
+        <Link
+          to={"/register"}
+          className="btn-primary bg-black text-white hidden sm:block"
+        >
           Register
         </Link>
       </div>

@@ -22,7 +22,10 @@
 }
 
 @layer components {
+  .border-common {
+    @apply border border-border;
+  }
   .btn-primary {
-    @apply px-3 py-[6px] text-heading border border-border text-xs uppercase rounded-md transition;
+    @apply px-3 py-[6px] bg-[#010104] text-white border-common text-xs uppercase rounded-md transition;
   }
 }
