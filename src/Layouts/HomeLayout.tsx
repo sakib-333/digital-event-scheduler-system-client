@@ -4,6 +4,7 @@ import useTheme from "../Hooks/useTheme/useTheme";
 import { Outlet } from "react-router-dom";
 import { IoMdMoon } from "react-icons/io";
 import { IoSunnySharp } from "react-icons/io5";
+import Footer from "../Components/Footer/Footer";
 
 const HomeLayout = () => {
   const { theme, setTheme } = useTheme();
@@ -27,11 +28,12 @@ const HomeLayout = () => {
   };
 
   return (
-    <div className="max-w-screen-2xl mx-auto relative">
+    <div className="max-w-screen-2xl mx-auto bg-background relative">
       <Navbar />
-      <div className="bg-background min-h-screen">
+      <div className="min-h-screen">
         <Outlet />
       </div>
+      <Footer />
       <button
         className="w-8 h-8 rounded-full flex items-center justify-center text-primary fixed border-common right-5 bottom-5 z-10"
         onClick={hanleToggleTheme}
