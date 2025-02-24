@@ -57,11 +57,13 @@ const Slider = () => {
           className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] flex items-center justify-center border-bottom"
         >
           <div className="text-center max-w-md px-4 flex flex-col items-center gap-2">
-            <h1 className="text-heading text-2xl md:text-3xl font-bold">
+            <h1 className="text-primary text-2xl md:text-3xl font-bold">
               {slide.title}
             </h1>
-            <p className="text-text text-xs sm:text-sm">{slide.description}</p>
-            <Link to={"/events"} className="btn-primary w-fit">
+            <p className="text-secondary text-xs sm:text-sm">
+              {slide.description}
+            </p>
+            <Link to={"/events"} className="primary-btn outline-btn w-fit">
               See Events
             </Link>
           </div>

@@ -33,7 +33,7 @@ const HomeLayout = () => {
         <Outlet />
       </div>
       <button
-        className="w-8 h-8 rounded-full flex items-center justify-center text-text fixed border-common right-5 bottom-5 z-10"
+        className="w-8 h-8 rounded-full flex items-center justify-center text-primary fixed border-common right-5 bottom-5 z-10"
         onClick={hanleToggleTheme}
       >
         {theme === "light" ? <IoMdMoon /> : <IoSunnySharp />}

@@ -4,20 +4,18 @@
 
 @layer base {
   :root {
-    --heading: rgb(0, 0, 0);
-    --text: rgba(0, 0, 0, 0.8);
+    --background: rgb(251, 251, 254);
+    --background2: rgb(231, 231, 234);
+    --primary: rgb(0, 0, 0);
+    --secondary: rgba(0, 0, 0, 0.8);
     --border: rgba(0, 0, 0, 0.1);
-    --background: #fbfbfe;
-    --primary: rgba(0, 0, 255, 0.8);
-    --accent: rgba(0, 0, 255, 0.6);
   }
   .dark {
-    --heading: rgb(255, 255, 255);
-    --text: rgba(255, 255, 255, 0.8);
+    --background: rgb(1, 1, 4);
+    --background2: rgb(20, 20, 50);
+    --primary: rgb(255, 255, 255);
+    --secondary: rgba(255, 255, 255, 0.8);
     --border: rgba(255, 255, 255, 0.3);
-    --background: #010104;
-    --primary: rgba(0, 0, 255, 0.8);
-    --accent: rgba(0, 0, 255, 0.6);
   }
 }
 
@@ -28,10 +26,13 @@
   .border-bottom {
     @apply border-common border-t-0 border-x-0;
   }
-  .btn-primary {
-    @apply px-3 py-[6px] bg-[#010104] text-white border-common text-xs uppercase rounded-md transition;
+  .primary-btn {
+    @apply px-3 py-[6px] text-primary border-common text-xs uppercase rounded-md transition;
   }
-  .width-primary {
+  .outline-btn {
+    @apply bg-black text-white;
+  }
+  .primary-width {
     @apply px-4 sm:px-6 md:px-8 lg:px-12 container;
   }
 }

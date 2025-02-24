@@ -9,17 +9,17 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <NavLink to={"/"} className="font-bold nav-link text-heading">
+        <NavLink to={"/"} className="font-bold nav-link text-primary">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/about"} className="font-bold nav-link text-heading">
+        <NavLink to={"/about"} className="font-bold nav-link text-primary">
           About
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/contact"} className="font-bold nav-link text-heading">
+        <NavLink to={"/contact"} className="font-bold nav-link text-primary">
           Contact
         </NavLink>
       </li>
@@ -27,7 +27,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar mx-auto width-primary bg-background border-bottom">
+    <div className="navbar mx-auto primary-width bg-background border-bottom">
       <div className="navbar-start">
         <div className="dropdown">
           <div
@@ -63,7 +63,7 @@ const Navbar = () => {
             src={theme === "dark" ? appLogoDark : appLogoLight}
             alt="logo"
           />
-          <h1 className="text-xl text-heading font-bold hidden sm:block">
+          <h1 className="text-xl text-primary font-bold hidden sm:block">
             Event Scheduler
           </h1>
         </Link>
@@ -72,12 +72,12 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end flex items-center gap-1">
-        <Link to={"/login"} className="btn-primary bg-background text-heading">
+        <Link to={"/login"} className="primary-btn">
           Login
         </Link>
         <Link
           to={"/register"}
-          className="btn-primary bg-black text-white hidden sm:block"
+          className="primary-btn outline-btn hidden sm:block"
         >
           Register
         </Link>

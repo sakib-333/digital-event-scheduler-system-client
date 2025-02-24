@@ -1,7 +1,7 @@
 .nav-link {
   text-decoration: none;
   /* padding: 10px 15px; */
-  color: var(--heading) !important;
+  color: var(--primary) !important;
 }
 
 .nav-link:hover {

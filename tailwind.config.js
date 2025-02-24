@@ -5,12 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        heading: "var(--heading)",
-        text: "var(--text)",
         border: "var(--border)",
         background: "var(--background)",
+        background2: "var(--background2)",
         primary: "var(--primary)",
-        accent: "var(--accent)",
+        secondary: "var(--secondary)",
       },
     },
   },
