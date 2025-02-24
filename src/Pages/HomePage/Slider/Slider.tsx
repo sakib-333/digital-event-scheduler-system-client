@@ -54,7 +54,7 @@ const Slider = () => {
       {slides.map((slide) => (
         <div
           key={slide.id}
-          className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] flex items-center justify-center border-bottom"
+          className="bg-background2 w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] flex items-center justify-center border-bottom"
         >
           <div className="text-center max-w-md px-4 flex flex-col items-center gap-2">
             <h1 className="text-primary text-2xl md:text-3xl font-bold">
