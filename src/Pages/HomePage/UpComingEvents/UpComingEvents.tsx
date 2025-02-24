@@ -6,7 +6,7 @@ const events = [1, 2, 3, 4, 5, 6];
 
 const UpComingEvents = () => {
   return (
-    <div className="primary-margin">
+    <div className="primary-spacing primary-width mx-auto">
       <Heading
         title="Up Coming Event"
         subtitle="Stay with us for the coming events."

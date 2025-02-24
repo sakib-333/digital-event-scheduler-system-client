@@ -1,4 +1,5 @@
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import EventCounter from "./EventCounter/EventCounter";
 import Slider from "./Slider/Slider";
 import UpComingEvents from "./UpComingEvents/UpComingEvents";
 
@@ -7,8 +8,9 @@ const HomePage = () => {
     <div>
       <PageTitle title="Home" />
       <Slider />
-      <div className="primary-width mx-auto">
         <UpComingEvents />
+        <EventCounter />
+      <div className="primary-width mx-auto">
       </div>
     </div>
   );

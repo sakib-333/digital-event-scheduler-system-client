@@ -35,7 +35,7 @@
   .primary-width {
     @apply px-4 sm:px-6 md:px-8 lg:px-12 container;
   }
-  .primary-margin {
-    @apply mt-12 sm:mt-16 md:mt-20 lg:mt-24;
+  .primary-spacing {
+    @apply mt-12 sm:mt-16 md:mt-20 lg:mt-24 py-4 sm:py-5 md:py-6 lg:py-7;
   }
 }
