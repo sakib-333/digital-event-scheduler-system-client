@@ -27,13 +27,13 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-background border-common border-x-0 border-t-0">
+    <div className="navbar mx-auto width-primary bg-background border-bottom">
       <div className="navbar-start">
         <div className="dropdown">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost text-text lg:hidden"
+            className="btn btn-ghost pl-0 text-text lg:hidden"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
