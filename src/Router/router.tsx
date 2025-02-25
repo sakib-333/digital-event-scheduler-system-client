@@ -6,6 +6,7 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import EventsPage from "../Pages/EventsPage/EventsPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
+import AboutPage from "../Pages/AboutPage/AboutPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
     ],
   },
