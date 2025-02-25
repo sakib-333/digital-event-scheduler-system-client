@@ -18,7 +18,7 @@ const ContactPage = () => {
       <div className="primary-width mt-4 mx-auto flex justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-screen-md w-full border-common p-4 sm:p-6 md:p-8 lg:p-10 rounded-md gap-3 grid grid-cols-1 md:grid-cols-2"
+          className="max-w-screen-md shadow-lg w-full border-common p-4 sm:p-6 md:p-8 lg:p-10 rounded-md gap-3 grid grid-cols-1 md:grid-cols-2"
         >
           <h1 className="text-primary font-bold md:col-span-2">Contact</h1>
           <div className="md:col-span-2">
