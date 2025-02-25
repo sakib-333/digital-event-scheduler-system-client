@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const EventCard = () => {
   return (
-    <div className="max-w-sm w-full border border-border rounded-md space-y-2 overflow-hidden">
+    <div className="max-w-sm w-full border hover:shadow-lg transition hover:scale-[1.02] border-border rounded-md space-y-2 overflow-hidden">
       <img
         className="w-full max-h-[180px] rounded-t-md object-cover"
         src={EventDefaultLogo}

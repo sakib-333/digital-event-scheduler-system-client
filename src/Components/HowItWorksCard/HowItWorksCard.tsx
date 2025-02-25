@@ -10,7 +10,7 @@ interface HowItWorksCardProps {
 
 const HowItWorksCard = ({ data }: HowItWorksCardProps) => {
   return (
-    <div className="border border-border p-2 rounded-md max-w-xs w-full text-center flex flex-col items-center">
+    <div className="border border-border hover:shadow-lg transition hover:scale-[1.02] p-2 rounded-md max-w-xs w-full text-center flex flex-col items-center">
       <img
         className="w-16 h-16 md:w-20 md:h-20"
         src={data.photoURL}
