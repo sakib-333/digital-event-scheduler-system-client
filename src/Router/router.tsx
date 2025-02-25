@@ -5,6 +5,7 @@ import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import EventsPage from "../Pages/EventsPage/EventsPage";
+import ContactPage from "../Pages/ContactPage/ContactPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/events",
         element: <EventsPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
       },
     ],
   },
