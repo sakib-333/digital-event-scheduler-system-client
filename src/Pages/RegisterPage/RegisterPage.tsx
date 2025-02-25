@@ -1,17 +1,23 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
+import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 type Inputs = {
+  fullName: string;
   email: string;
+  photo: string;
   password: string;
 };
 
-const LoginPage = () => {
-  const { register, handleSubmit } = useForm<Inputs>();
+const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
@@ -19,13 +25,21 @@ const LoginPage = () => {
   };
   return (
     <>
-      <PageTitle title="Login" />
+      <PageTitle title="Register" />
       <div className="w-full flex items-center p-4 justify-center min-h-screen">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-sm w-full px-8 py-16 space-y-4 rounded-md shadow-md border-common"
         >
-          <h1 className="text-primary font-bold">Login</h1>
+          <h1 className="text-primary font-bold">Register</h1>
+          <label className="form-control w-full">
+            <input
+              type="text"
+              placeholder="Enter full name"
+              {...register("fullName", { required: true })}
+              className="input bg-background focus:border-common text-secondary border-common rounded-md input-sm w-full"
+            />
+          </label>
           <label className="form-control w-full">
             <input
               type="email"
@@ -34,10 +48,20 @@ const LoginPage = () => {
               className="input bg-background focus:border-common text-secondary border-common rounded-md input-sm w-full"
             />
           </label>
+          <label className="form-control w-full">
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+              className="file-input border-common text-secondary rounded-md bg-background file-input-sm w-full"
+              {...register("photo", { required: true })}
+            />
+          </label>
           <label className="form-control w-full relative">
             <input
               type={show ? "text" : "password"}
-              {...register("password", { required: true })}
+              {...register("password", {
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+              })}
               placeholder="Enter password"
               className="input bg-background focus:border-common border-common text-secondary rounded-md input-sm w-full"
             />
@@ -49,16 +73,23 @@ const LoginPage = () => {
               {show ? <FaEye /> : <FaEyeSlash />}
             </button>
           </label>
+          {errors.password && (
+            <p className="text-red-400 text-xs text-justify">
+              Password must consist at least one uppercase, one lowercase, one
+              number, and length at least 6 characters.
+            </p>
+          )}
+
           <div>
-            <button className="primary-btn outline-btn w-full">Login</button>
+            <button className="primary-btn outline-btn w-full">Register</button>
           </div>
           <div className="divider before:bg-secondary after:bg-secondary text-secondary">
             Or
           </div>
           {googleSignin}
           <p className="text-xs text-center text-secondary">
-            <span>Don't have an account? Please register</span>{" "}
-            <Link to={"/register"} className="underline text-[#00f]">
+            <span>Already have an account? Please login</span>{" "}
+            <Link to={"/login"} className="underline text-[#00f]">
               here
             </Link>
           </p>
@@ -68,4 +99,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
