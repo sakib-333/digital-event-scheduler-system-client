@@ -80,10 +80,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const authInfo: authInfoInterface = {
     user,
     userLoading,
