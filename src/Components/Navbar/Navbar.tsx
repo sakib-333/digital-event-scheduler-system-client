@@ -3,9 +3,15 @@ import { Link, NavLink } from "react-router-dom";
 import appLogoLight from "/appLogoLight.png";
 import appLogoDark from "/appLogoDark.png";
 import useTheme from "../../Hooks/useTheme/useTheme";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import defaultUser from "/defaultUser.svg";
 
 const Navbar = () => {
   const { theme } = useTheme();
+  const { user } = useAuth();
+
+  console.log(user);
+
   const navItems = (
     <>
       <li>
@@ -77,16 +83,27 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
+
         <div className="navbar-end flex items-center gap-1">
-          <Link to={"/login"} className="primary-btn">
-            Login
-          </Link>
-          <Link
-            to={"/register"}
-            className="primary-btn outline-btn hidden sm:block"
-          >
-            Register
-          </Link>
+          {user ? (
+            <img
+              title={`${user.displayName}`}
+              className="w-10 h-10 rounded-full"
+              src={user.photoURL || defaultUser}
+            />
+          ) : (
+            <>
+              <Link to={"/login"} className="primary-btn">
+                Login
+              </Link>
+              <Link
+                to={"/register"}
+                className="primary-btn outline-btn hidden sm:block"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
