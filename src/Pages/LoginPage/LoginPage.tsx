@@ -4,6 +4,7 @@ import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import useAuth from "../../Hooks/useAuth/useAuth";
 
 type Inputs = {
   email: string;
@@ -14,8 +15,12 @@ const LoginPage = () => {
   const { register, handleSubmit } = useForm<Inputs>();
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
+  const { signinWithEmailPassword } = useAuth();
+
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
+    signinWithEmailPassword(data.email, data.password)
+      .then(() => console.log("Sign in successful"))
+      .catch((err) => console.log(err));
   };
   return (
     <>

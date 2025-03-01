@@ -8,7 +8,7 @@ import defaultUser from "/defaultUser.svg";
 
 const Navbar = () => {
   const { theme } = useTheme();
-  const { user } = useAuth();
+  const { user, handleLogout } = useAuth();
 
   console.log(user);
 
@@ -34,6 +34,13 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
+      {user && (
+        <li>
+          <button onClick={handleLogout} className="primary-btn outline-btn">
+            Logout
+          </button>
+        </li>
+      )}
     </>
   );
 
