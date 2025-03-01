@@ -4,6 +4,8 @@ import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
 import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import useAuth from "../../Hooks/useAuth/useAuth";
 
 type Inputs = {
   fullName: string;
@@ -20,8 +22,34 @@ const RegisterPage = () => {
   } = useForm<Inputs>();
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
-    console.log(data);
+  const { registerUserWithEmailPassword, updateUserProfile } = useAuth();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+
+    const api_key = import.meta.env.VITE_IMGBB_API_KEY;
+    try {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${api_key}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (res.data.success) {
+        const photoURL = res.data.data.url;
+        registerUserWithEmailPassword(data.email, data.password)
+          .then(() => updateUserProfile(data.fullName, photoURL))
+          .then(() => {
+            console.log("Registration successful");
+          })
+          .catch((err) => console.log(err));
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
