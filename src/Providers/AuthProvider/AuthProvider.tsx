@@ -40,6 +40,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     signOut(auth)
       .then(() => {
         console.log("Signout successful.");
+        setUser(null);
       })
       .catch(() => console.log("Something went wrong."))
       .finally(() => setUserLoading(false));
