@@ -5,12 +5,15 @@ import appLogoDark from "/appLogoDark.png";
 import useTheme from "../../Hooks/useTheme/useTheme";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import defaultUser from "/defaultUser.svg";
+import { CgProfile } from "react-icons/cg";
+import { IoMdAdd } from "react-icons/io";
+import { MdOutlineEventNote } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { FaHome } from "react-icons/fa";
 
 const Navbar = () => {
   const { theme } = useTheme();
   const { user, handleLogout } = useAuth();
-
-  console.log(user);
 
   const navItems = (
     <>
@@ -34,18 +37,11 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
-      {user && (
-        <li>
-          <button onClick={handleLogout} className="primary-btn outline-btn">
-            Logout
-          </button>
-        </li>
-      )}
     </>
   );
 
   return (
-    <div className="w-full mx-auto bg-background">
+    <div className="drawer z-20 auto-cols-auto w-full mx-auto bg-background">
       <div className="navbar mx-auto primary-width bg-background border-bottom">
         <div className="navbar-start">
           <div className="dropdown">
@@ -93,11 +89,59 @@ const Navbar = () => {
 
         <div className="navbar-end flex items-center gap-1">
           {user ? (
-            <img
-              title={`${user.displayName}`}
-              className="w-10 h-10 rounded-full"
-              src={user.photoURL || defaultUser}
-            />
+            <>
+              <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+              <div className="drawer-content">
+                <label htmlFor="my-drawer" className="cursor-pointer">
+                  <img
+                    title={`${user.displayName}`}
+                    className="w-10 h-10 rounded-full"
+                    src={user.photoURL || defaultUser}
+                  />
+                </label>
+              </div>
+              <div className="drawer-side">
+                <label
+                  htmlFor="my-drawer"
+                  aria-label="close sidebar"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="menu bg-background2 text-primary min-h-full w-44 p-4">
+                  <li className="text-base md:text-lg font-bold">
+                    Event Scheduler
+                  </li>
+                  <li>
+                    <Link to={"/"}>
+                      <FaHome />
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/my-profile"}>
+                      <CgProfile /> <span>My Profile</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/add-events"}>
+                      <IoMdAdd />
+                      <span>Add Events</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/my-events"}>
+                      <MdOutlineEventNote />
+                      <span>My Events</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout}>
+                      <RiLogoutBoxLine />
+                      <span>Logout</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </>
           ) : (
             <>
               <Link to={"/login"} className="primary-btn">
