@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -24,6 +25,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userLoading, setUserLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   // Signin with google
   const handleSigninWithGoogle = () => {
@@ -58,6 +60,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
         setUser(currUser);
+        axiosSecure
+          .post("/jwt", { email: currUser.email })
+          .then((res) => console.log(res))
+          .catch(() => console.log("Something went wrong"))
+          .finally(() => setUserLoading(false));
+      } else {
+        axiosSecure
+          .post("/logout")
+          .then(() => console.log("Cookie cleared"))
+          .catch(() => console.log("Something went wrong"))
+          .finally(() => setUserLoading(false));
       }
     });
     return () => unsubscribe();
