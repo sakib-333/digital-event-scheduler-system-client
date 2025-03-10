@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
 
 type Inputs = {
   fullName: string;
@@ -23,6 +24,7 @@ const RegisterPage = () => {
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
   const { registerUserWithEmailPassword, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const formData = new FormData();
@@ -42,9 +44,14 @@ const RegisterPage = () => {
         const photoURL = res.data.data.url;
         registerUserWithEmailPassword(data.email, data.password)
           .then(() => updateUserProfile(data.fullName, photoURL))
-          .then(() => {
-            console.log("Registration successful");
-          })
+          .then(() =>
+            axiosPublic.post("/store-user", {
+              displayName: data.fullName,
+              email: data.email,
+              userType: "general",
+            })
+          )
+          .then((res) => console.log(res))
           .catch((err) => console.log(err));
       }
     } catch (err) {

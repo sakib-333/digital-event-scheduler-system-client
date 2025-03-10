@@ -13,6 +13,7 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
+import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -22,14 +23,20 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [userLoading, setUserLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   // Signin with google
   const handleSigninWithGoogle = () => {
     setUserLoading(true);
     signInWithPopup(auth, googleProvider)
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) =>
+        axiosPublic.post("/store-user", {
+          displayName: res.user.displayName,
+          email: res.user.email,
+          userType: "general",
+        })
+      )
+      .then(() => console.log("Login successful"))
       .catch((err) => console.log(err))
       .finally(() => setUserLoading(false));
   };
