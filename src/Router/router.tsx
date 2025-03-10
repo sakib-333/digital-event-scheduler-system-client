@@ -7,6 +7,7 @@ import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import EventsPage from "../Pages/EventsPage/EventsPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import AboutPage from "../Pages/AboutPage/AboutPage";
+import MyProfilePage from "../Pages/MyProfilePage/MyProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/my-profile",
+        element: <MyProfilePage />,
       },
     ],
   },
