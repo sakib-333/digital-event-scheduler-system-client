@@ -106,32 +106,47 @@ const Navbar = () => {
                   aria-label="close sidebar"
                   className="drawer-overlay"
                 ></label>
-                <ul className="menu bg-background2 text-primary min-h-full w-44 p-4">
+                <ul className="menu bg-background2 text-primary min-h-full w-48 p-4">
                   <li className="text-base md:text-lg font-bold">
                     Event Scheduler
                   </li>
+                  <li className="w-full">
+                    <div>
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src={user.photoURL || defaultUser}
+                        alt="profile"
+                      />
+                      <div>
+                        <h1 className="text-xs">{user.displayName}</h1>
+                        <p className="text-[9px] text-secondary">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
                   <li>
-                    <Link to={"/"}>
+                    <NavLink to={"/"} className="nav-link">
                       <FaHome />
                       <span>Home</span>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to={"/my-profile"}>
+                    <NavLink to={"/my-profile"} className="nav-link">
                       <CgProfile /> <span>My Profile</span>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to={"/add-events"}>
+                    <NavLink to={"/add-events"} className="nav-link">
                       <IoMdAdd />
                       <span>Add Events</span>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to={"/my-events"}>
+                    <NavLink to={"/my-events"} className="nav-link">
                       <MdOutlineEventNote />
                       <span>My Events</span>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
                     <button onClick={handleLogout}>
