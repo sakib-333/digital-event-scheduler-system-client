@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
+import { successAlert } from "../../Components/Alerts/successAlert";
 
 type Inputs = {
   fullName: string;
@@ -23,10 +24,13 @@ const RegisterPage = () => {
   } = useForm<Inputs>();
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
-  const { registerUserWithEmailPassword, updateUserProfile } = useAuth();
+  const { registerUserWithEmailPassword, updateUserProfile, setUserLoading } =
+    useAuth();
   const axiosPublic = useAxiosPublic();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    setUserLoading(true);
+
     const formData = new FormData();
     formData.append("image", data.photo[0]);
 
@@ -51,11 +55,18 @@ const RegisterPage = () => {
               userType: "general",
             })
           )
-          .then((res) => console.log(res))
+          .then(() =>
+            successAlert(
+              "Registration successful",
+              "You have successfully registered."
+            )
+          )
           .catch((err) => console.log(err));
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setUserLoading(false);
     }
   };
   return (

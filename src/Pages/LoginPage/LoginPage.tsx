@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import { successAlert } from "../../Components/Alerts/successAlert";
 
 type Inputs = {
   email: string;
@@ -19,7 +20,9 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
     signinWithEmailPassword(data.email, data.password)
-      .then(() => console.log("Sign in successful"))
+      .then(() =>
+        successAlert("Login successful", "You have successfully logged in")
+      )
       .catch((err) => console.log(err));
   };
   return (
