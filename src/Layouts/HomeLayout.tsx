@@ -5,9 +5,12 @@ import { Outlet } from "react-router-dom";
 import { IoMdMoon } from "react-icons/io";
 import { IoSunnySharp } from "react-icons/io5";
 import Footer from "../Components/Footer/Footer";
+import useAuth from "../Hooks/useAuth/useAuth";
+import LoadingSpinner from "../Components/LoadingSpinner/LoadingSpinner";
 
 const HomeLayout = () => {
   const { theme, setTheme } = useTheme();
+  const { userLoading } = useAuth();
 
   useEffect(() => {
     if (theme === "dark") {
@@ -31,7 +34,7 @@ const HomeLayout = () => {
     <div className="max-w-screen-2xl mx-auto bg-background relative">
       <Navbar />
       <div className="min-h-screen">
-        <Outlet />
+        {userLoading ? <LoadingSpinner /> : <Outlet />}
       </div>
       <Footer />
       <button
