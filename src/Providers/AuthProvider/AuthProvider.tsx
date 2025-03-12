@@ -13,33 +13,33 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
-import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
-import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
 import { successAlert } from "../../Components/Alerts/successAlert";
+import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
 
 type AuthProviderProps = {
   children: ReactNode;
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
+  const axiosSecure = useAxiosSecure();
   const [user, setUser] = useState<User | null>(null);
   const [userLoading, setUserLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider();
-  const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
 
   // Signin with google
   const handleSigninWithGoogle = () => {
     setUserLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((res) =>
-        axiosPublic.post("/store-user", {
-          displayName: res.user.displayName,
+        axiosSecure.post("/users", {
           email: res.user.email,
+          fullName: res.user.displayName,
           userType: "general",
         })
       )
-      .then(() => console.log("Login successful"))
+      .then(() => {
+        successAlert("Login successful", "You have successfully logged in");
+      })
       .catch((err) => console.log(err))
       .finally(() => setUserLoading(false));
   };
@@ -61,16 +61,21 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
         setUser(currUser);
+
         axiosSecure
           .post("/jwt", { email: currUser.email })
-          .then((res) => console.log(res))
-          .catch(() => console.log("Something went wrong"))
+          .then(() => {
+            setUserLoading(false);
+          })
+          .catch(() => console.log("Error message"))
           .finally(() => setUserLoading(false));
       } else {
         axiosSecure
           .post("/logout")
-          .then(() => console.log("Cookie cleared"))
-          .catch(() => console.log("Something went wrong"))
+          .then(() => {
+            setUserLoading(false);
+          })
+          .catch(() => console.log("Error message"))
           .finally(() => setUserLoading(false));
       }
     });

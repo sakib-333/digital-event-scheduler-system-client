@@ -6,8 +6,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth/useAuth";
-import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
 import { successAlert } from "../../Components/Alerts/successAlert";
+import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
 
 type Inputs = {
   fullName: string;
@@ -17,6 +17,7 @@ type Inputs = {
 };
 
 const RegisterPage = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,6 @@ const RegisterPage = () => {
   const googleSignin = useGoogleSignin();
   const { registerUserWithEmailPassword, updateUserProfile, setUserLoading } =
     useAuth();
-  const axiosPublic = useAxiosPublic();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     setUserLoading(true);
@@ -49,19 +49,22 @@ const RegisterPage = () => {
         registerUserWithEmailPassword(data.email, data.password)
           .then(() => updateUserProfile(data.fullName, photoURL))
           .then(() =>
-            axiosPublic.post("/store-user", {
-              displayName: data.fullName,
+            axiosPublic.post("/users", {
               email: data.email,
+              fullName: data.fullName,
               userType: "general",
             })
           )
-          .then(() =>
+          .then(() => {
             successAlert(
               "Registration successful",
               "You have successfully registered."
-            )
-          )
-          .catch((err) => console.log(err));
+            );
+          })
+          .catch((err) => console.log(err))
+          .finally(() => setUserLoading(false));
+      } else {
+        setUserLoading(false);
       }
     } catch (err) {
       console.log(err);
