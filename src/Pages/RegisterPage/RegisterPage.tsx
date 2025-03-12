@@ -8,6 +8,7 @@ import axios from "axios";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import { successAlert } from "../../Components/Alerts/successAlert";
 import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
+import { errorAlert } from "../../Components/Alerts/errorAlert";
 
 type Inputs = {
   fullName: string;
@@ -61,13 +62,15 @@ const RegisterPage = () => {
               "You have successfully registered."
             );
           })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            errorAlert("Registration failed", err.message);
+          })
           .finally(() => setUserLoading(false));
       } else {
         setUserLoading(false);
       }
     } catch (err) {
-      console.log(err);
+      errorAlert("Registration failed", "Something went wrong");
     } finally {
       setUserLoading(false);
     }
