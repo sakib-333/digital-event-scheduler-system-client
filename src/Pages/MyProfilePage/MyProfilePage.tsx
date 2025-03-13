@@ -1,9 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import defaultUser from "/defaultUser.svg";
+import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const MyProfilePage = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosSecure();
+  const { data: myInfo = {}, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await axiosPublic.post("/user", { email: user?.email });
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
       <PageTitle title={"My Profile"} />
@@ -15,7 +31,9 @@ const MyProfilePage = () => {
               src={user?.photoURL || defaultUser}
               alt="profile"
             />
-            <p className="text-xs text-secondary">Admin</p>
+            <p className="text-xs text-secondary capitalize">
+              {myInfo.userType}
+            </p>
             <h1 className="text-primary">{user?.displayName}</h1>
             <p className="text-xs text-secondary">{user?.email}</p>
           </div>
@@ -31,9 +49,9 @@ const MyProfilePage = () => {
               </thead>
               <tbody className="border-none">
                 <tr className="border-none">
-                  <td>10</td>
-                  <td>8</td>
-                  <td>2</td>
+                  <td>{myInfo.totalPosts}</td>
+                  <td>{myInfo.approved}</td>
+                  <td>{myInfo.totalPosts - myInfo.approved}</td>
                 </tr>
               </tbody>
             </table>
