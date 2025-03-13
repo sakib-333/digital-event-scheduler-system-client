@@ -16,6 +16,7 @@ import { auth } from "../../Firebase/firebase.config";
 import { successAlert } from "../../Components/Alerts/successAlert";
 import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
 import { errorAlert } from "../../Components/Alerts/errorAlert";
+import updatedUserInterface from "../Interfaces/updatedUserInterface";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -23,7 +24,8 @@ type AuthProviderProps = {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const axiosSecure = useAxiosSecure();
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<updatedUserInterface | null>(null);
   const [userLoading, setUserLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider();
 
@@ -61,12 +63,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-        setUser(currUser);
-
         axiosSecure
           .post("/jwt", { email: currUser.email })
-          .then(() => {
-            setUserLoading(false);
+          .then(() => axiosSecure.post("/user-type", { email: currUser.email }))
+          .then(({ data }) => {
+            const updatedUser = { ...currUser, userType: data };
+            setUser(updatedUser);
           })
           .catch(() => console.log("Error message"))
           .finally(() => setUserLoading(false));

@@ -6,10 +6,10 @@ import useTheme from "../../Hooks/useTheme/useTheme";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import defaultUser from "/defaultUser.svg";
 import { CgProfile } from "react-icons/cg";
-import { IoMdAdd } from "react-icons/io";
-import { MdOutlineEventNote } from "react-icons/md";
+import { MdOutlineEventNote, MdPostAdd } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUsers } from "react-icons/fa";
+import { BsFilePost } from "react-icons/bs";
 
 const Navbar = () => {
   const { theme } = useTheme();
@@ -110,21 +110,17 @@ const Navbar = () => {
                   <li className="text-base md:text-lg font-bold">
                     Event Scheduler
                   </li>
-                  <li className="w-full">
-                    <div>
-                      <img
-                        className="w-10 h-10 rounded-full"
-                        src={user.photoURL || defaultUser}
-                        alt="profile"
-                      />
-                      <div>
-                        <h1 className="text-xs">{user.displayName}</h1>
-                        <p className="text-[9px] text-secondary">
-                          {user.email}
-                        </p>
-                      </div>
+                  <div className="flex">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={user.photoURL || defaultUser}
+                      alt="profile"
+                    />
+                    <div className="truncate">
+                      <h1 className="text-xs">{user.displayName}</h1>
+                      <p className="text-[9px] text-secondary">{user.email}</p>
                     </div>
-                  </li>
+                  </div>
                   <li>
                     <NavLink to={"/"} className="nav-link">
                       <FaHome />
@@ -138,7 +134,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <NavLink to={"/add-events"} className="nav-link">
-                      <IoMdAdd />
+                      <MdPostAdd />
                       <span>Add Events</span>
                     </NavLink>
                   </li>
@@ -148,6 +144,22 @@ const Navbar = () => {
                       <span>My Events</span>
                     </NavLink>
                   </li>
+                  {user?.userType === "admin" && (
+                    <>
+                      <li>
+                        <NavLink to={"/posts"} className="nav-link">
+                          <BsFilePost />
+                          <span>Posts</span>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to={"/users"} className="nav-link">
+                          <FaUsers />
+                          <span>Users</span>
+                        </NavLink>
+                      </li>
+                    </>
+                  )}
                   <li>
                     <button onClick={handleLogout}>
                       <RiLogoutBoxLine />

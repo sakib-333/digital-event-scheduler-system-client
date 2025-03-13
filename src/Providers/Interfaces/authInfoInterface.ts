@@ -1,7 +1,8 @@
-import { User, UserCredential } from "firebase/auth";
+import { UserCredential } from "firebase/auth";
+import updatedUserInterface from "./updatedUserInterface";
 
 interface authInfoInterface {
-  user: User | null;
+  user: updatedUserInterface | null;
   userLoading: boolean;
   setUserLoading: React.Dispatch<React.SetStateAction<boolean>>;
   // handleSigninWithGoogle: () => Promise<UserCredential>;
