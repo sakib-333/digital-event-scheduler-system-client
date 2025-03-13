@@ -9,7 +9,6 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
-  User,
   UserCredential,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
