@@ -133,9 +133,9 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to={"/add-events"} className="nav-link">
+                    <NavLink to={"/add-event"} className="nav-link">
                       <MdPostAdd />
-                      <span>Add Events</span>
+                      <span>Add Event</span>
                     </NavLink>
                   </li>
                   <li>

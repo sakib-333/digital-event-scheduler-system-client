@@ -9,6 +9,7 @@ import ContactPage from "../Pages/ContactPage/ContactPage";
 import AboutPage from "../Pages/AboutPage/AboutPage";
 import MyProfilePage from "../Pages/MyProfilePage/MyProfilePage";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
+import AddEvent from "../Pages/AddEvent/AddEvent";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyProfilePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-event",
+        element: (
+          <PrivateRoute>
+            <AddEvent />
           </PrivateRoute>
         ),
       },
