@@ -8,6 +8,7 @@ import EventsPage from "../Pages/EventsPage/EventsPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import AboutPage from "../Pages/AboutPage/AboutPage";
 import MyProfilePage from "../Pages/MyProfilePage/MyProfilePage";
+import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-profile",
-        element: <MyProfilePage />,
+        element: (
+          <PrivateRoute>
+            <MyProfilePage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
