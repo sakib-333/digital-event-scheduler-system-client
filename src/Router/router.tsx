@@ -11,6 +11,7 @@ import MyProfilePage from "../Pages/MyProfilePage/MyProfilePage";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import AddEventPage from "../Pages/AddEventPage/AddEventPage";
 import MyEventsPage from "../Pages/MyEventsPage/MyEventsPage";
+import ManageEventsPage from "../Pages/ManageEventsPage/ManageEventsPage";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyEventsPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-events",
+        element: (
+          <PrivateRoute>
+            <ManageEventsPage />
           </PrivateRoute>
         ),
       },
