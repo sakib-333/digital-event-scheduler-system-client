@@ -10,6 +10,7 @@ import AboutPage from "../Pages/AboutPage/AboutPage";
 import MyProfilePage from "../Pages/MyProfilePage/MyProfilePage";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import AddEventPage from "../Pages/AddEventPage/AddEventPage";
+import MyEventsPage from "../Pages/MyEventsPage/MyEventsPage";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddEventPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-events",
+        element: (
+          <PrivateRoute>
+            <MyEventsPage />
           </PrivateRoute>
         ),
       },
