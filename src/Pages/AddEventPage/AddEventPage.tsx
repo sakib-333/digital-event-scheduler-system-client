@@ -9,7 +9,7 @@ type Inputs = {
   date: string;
 };
 
-const AddEvent = () => {
+const AddEventPage = () => {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -89,4 +89,4 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+export default AddEventPage;
