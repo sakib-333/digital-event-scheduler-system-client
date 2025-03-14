@@ -6,10 +6,9 @@ import useTheme from "../../Hooks/useTheme/useTheme";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import defaultUser from "/defaultUser.svg";
 import { CgProfile } from "react-icons/cg";
-import { MdOutlineEventNote, MdPostAdd } from "react-icons/md";
+import { MdManageHistory, MdOutlineEventNote, MdPostAdd } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { FaHome, FaUsers } from "react-icons/fa";
-import { BsFilePost } from "react-icons/bs";
 
 const Navbar = () => {
   const { theme } = useTheme();
@@ -147,9 +146,9 @@ const Navbar = () => {
                   {user?.userType === "admin" && (
                     <>
                       <li>
-                        <NavLink to={"/posts"} className="nav-link">
-                          <BsFilePost />
-                          <span>Posts</span>
+                        <NavLink to={"/manage-events"} className="nav-link">
+                          <MdManageHistory />
+                          <span>Manage Events</span>
                         </NavLink>
                       </li>
                       <li>
