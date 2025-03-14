@@ -12,6 +12,7 @@ import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import AddEventPage from "../Pages/AddEventPage/AddEventPage";
 import MyEventsPage from "../Pages/MyEventsPage/MyEventsPage";
 import ManageEventsPage from "../Pages/ManageEventsPage/ManageEventsPage";
+import AdminRoute from "../Components/AdminRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -71,7 +72,9 @@ export const router = createBrowserRouter([
         path: "/manage-events",
         element: (
           <PrivateRoute>
-            <ManageEventsPage />
+            <AdminRoute>
+              <ManageEventsPage />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
