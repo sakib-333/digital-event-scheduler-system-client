@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import PageTitle from "../../Components/PageTitle/PageTitle";
 
 type Inputs = {
   title: string;
@@ -18,6 +19,7 @@ const AddEventPage = () => {
 
   return (
     <div className="primary-width min-h-screen flex items-center justify-center mt-4 mx-auto">
+      <PageTitle title="Add Event" />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-screen-md mx-auto w-full px-8 py-16 space-y-4 dark:bg-background2 rounded-md shadow-md"
