@@ -13,6 +13,7 @@ import AddEventPage from "../Pages/AddEventPage/AddEventPage";
 import MyEventsPage from "../Pages/MyEventsPage/MyEventsPage";
 import ManageEventsPage from "../Pages/ManageEventsPage/ManageEventsPage";
 import AdminRoute from "../Components/AdminRoute/AdminRoute";
+import ManageUsersPage from "../Pages/ManageUsersPage/ManageUsersPage";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManageEventsPage />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-users",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageUsersPage />
             </AdminRoute>
           </PrivateRoute>
         ),
