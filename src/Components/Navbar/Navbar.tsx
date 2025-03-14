@@ -8,7 +8,7 @@ import defaultUser from "/defaultUser.svg";
 import { CgProfile } from "react-icons/cg";
 import { MdManageHistory, MdOutlineEventNote, MdPostAdd } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { FaHome, FaUsers } from "react-icons/fa";
+import { FaHome, FaUsersCog } from "react-icons/fa";
 
 const Navbar = () => {
   const { theme } = useTheme();
@@ -152,9 +152,9 @@ const Navbar = () => {
                         </NavLink>
                       </li>
                       <li>
-                        <NavLink to={"/users"} className="nav-link">
-                          <FaUsers />
-                          <span>Users</span>
+                        <NavLink to={"/manage-users"} className="nav-link">
+                          <FaUsersCog />
+                          <span>Manage Users</span>
                         </NavLink>
                       </li>
                     </>
