@@ -31,11 +31,8 @@ const MyEventCard = () => {
         </p>
       </div>
       <div className="px-2 pb-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition">
-        <Link to={"/"}>
+        <Link to={`/edit/1`}>
           <button className="primary-btn outline-btn">Edit</button>
-        </Link>
-        <Link to={"/"}>
-          <button className="primary-btn outline-btn">Details</button>
         </Link>
         <button className="primary-btn outline-btn">Delete</button>
       </div>

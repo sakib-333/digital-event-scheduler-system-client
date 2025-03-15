@@ -15,6 +15,7 @@ import ManageEventsPage from "../Pages/ManageEventsPage/ManageEventsPage";
 import AdminRoute from "../Components/AdminRoute/AdminRoute";
 import ManageUsersPage from "../Pages/ManageUsersPage/ManageUsersPage";
 import EventDetailsPage from "../Pages/EventDetailsPage/EventDetailsPage";
+import EditEventPage from "../Pages/EditEventPage/EditEventPage";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddEventPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditEventPage />
           </PrivateRoute>
         ),
       },
