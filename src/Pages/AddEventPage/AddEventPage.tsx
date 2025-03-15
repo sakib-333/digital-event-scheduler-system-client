@@ -7,6 +7,7 @@ type Inputs = {
   photo: string;
   category: string;
   location: string;
+  participant: string;
   date: string;
 };
 
@@ -42,14 +43,26 @@ const AddEventPage = () => {
             className="input dark:bg-background2 bg-background max-h-28 h-full focus:border-common text-secondary border-common rounded-md input-sm w-full"
           ></textarea>
         </label>
+        <label className="form-control w-full">
+          <input
+            type="file"
+            accept="image/png, image/jpg, image/jpeg"
+            className="file-input border-common dark:bg-background2 text-secondary rounded-md bg-background file-input-sm w-full"
+            {...register("photo")}
+          />
+        </label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="form-control w-full">
-            <input
-              type="file"
-              accept="image/png, image/jpg, image/jpeg"
-              className="file-input border-common dark:bg-background2 text-secondary rounded-md bg-background file-input-sm w-full"
-              {...register("photo")}
-            />
+            <select
+              defaultValue="Select category"
+              {...register("participant", { required: true })}
+              className="input border-common text-secondary dark:bg-background2 rounded-md bg-background file-input-sm w-full"
+            >
+              <option disabled={true}>Select participant</option>
+              <option value={"teachers"}>Teachers</option>
+              <option value={"students"}>Students</option>
+              <option value={"anyone"}>Anyone</option>
+            </select>
           </label>
           <label className="form-control w-full">
             <select
@@ -83,9 +96,7 @@ const AddEventPage = () => {
             />
           </label>
         </div>
-        <button className="primary-btn outline-btn font-bold w-full">
-          Add Event
-        </button>
+        <button className="primary-btn outline-btn w-full">Add Event</button>
       </form>
     </div>
   );
