@@ -35,7 +35,7 @@ const ManageEventsPage = () => {
                 <td>{indx % 2 ? "Approved" : "Pending"}</td>
                 <td>
                   <Link
-                    to={`/manage-events/${indx}`}
+                    to={`/manage-event/${indx}`}
                     className="hover:underline"
                   >
                     Details
