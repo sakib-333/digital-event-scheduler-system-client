@@ -109,15 +109,17 @@ const Navbar = () => {
                   <li className="text-base md:text-lg font-bold">
                     Event Scheduler
                   </li>
-                  <div className="flex">
+                  <div className="flex gap-1 mt-1">
                     <img
                       className="w-10 h-10 rounded-full"
                       src={user.photoURL || defaultUser}
                       alt="profile"
                     />
                     <div className="truncate">
+                      <p className="text-[9px] text-secondary capitalize text-center">
+                        {user?.userType}
+                      </p>
                       <h1 className="text-xs">{user.displayName}</h1>
-                      <p className="text-[9px] text-secondary">{user.email}</p>
                     </div>
                   </div>
                   <li>
