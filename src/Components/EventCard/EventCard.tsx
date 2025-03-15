@@ -2,10 +2,18 @@ import { SlCalender } from "react-icons/sl";
 import EventDefaultLogo from "/EventDefaultLogo.png";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import * as motion from "motion/react-client";
+import { springAnimation } from "../../Animation/springAnimation";
 
 const EventCard = () => {
   return (
-    <div className="max-w-sm w-full border hover:shadow-lg transition hover:scale-[1.02] border-border rounded-md space-y-2 overflow-hidden">
+    <motion.div
+      variants={springAnimation()}
+      initial={"initial"}
+      whileInView={"whileInView"}
+      viewport={{ once: false, amount: 0.2 }}
+      className="max-w-sm w-full border hover:shadow-lg transition border-border rounded-md space-y-2 overflow-hidden"
+    >
       <img
         className="w-full max-h-[180px] rounded-t-md object-cover"
         src={EventDefaultLogo}
@@ -35,7 +43,7 @@ const EventCard = () => {
           <button className="primary-btn outline-btn">View Details</button>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

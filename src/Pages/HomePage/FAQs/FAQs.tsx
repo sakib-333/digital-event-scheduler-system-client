@@ -1,5 +1,7 @@
+import { springAnimation } from "../../../Animation/springAnimation";
 import Heading from "../../../Components/Heading/Heading";
 import FAQsIcon from "../Assets/FAQs.svg";
+import * as motion from "motion/react-client";
 
 const faqs = [
   {
@@ -25,7 +27,13 @@ const FAQs = () => {
     <div className="primary-spacing bg-background2 primary-width mx-auto">
       <Heading title="FAQs" subtitle="Do clear if you have any confusion" />
       <div className="flex items-center justify-between md:gap-4">
-        <div className="space-y-3 w-full md:w-1/2">
+        <motion.div
+          variants={springAnimation()}
+          initial={"initial"}
+          whileInView={"whileInView"}
+          viewport={{ once: false, amount: 0.2 }}
+          className="space-y-3 w-full md:w-1/2"
+        >
           {faqs.map((faq, indx) => (
             <div
               key={faq.id}
@@ -44,10 +52,16 @@ const FAQs = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="w-1/2 hidden md:block">
+        </motion.div>
+        <motion.div
+          variants={springAnimation()}
+          initial={"initial"}
+          whileInView={"whileInView"}
+          viewport={{ once: false, amount: 0.2 }}
+          className="w-1/2 hidden md:block"
+        >
           <img className="w-full h-[300px]" src={FAQsIcon} alt="FAQsIcon" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const UpComingEvents = () => {
           ))}
         </div>
         <div className="w-full flex justify-center mt-8 sm:mt-10 md:mt-12 lg:mt-16">
-          <Link to={"/event"}>
+          <Link to={"/events"}>
             <button className="primary-btn outline-btn">See More</button>
           </Link>
         </div>
