@@ -31,7 +31,7 @@ const EventCard = () => {
         </p>
       </div>
       <div className="px-2 pb-2 flex justify-end">
-        <Link to={"/"}>
+        <Link to={`/event/1`}>
           <button className="primary-btn outline-btn">View Details</button>
         </Link>
       </div>

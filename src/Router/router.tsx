@@ -14,6 +14,7 @@ import MyEventsPage from "../Pages/MyEventsPage/MyEventsPage";
 import ManageEventsPage from "../Pages/ManageEventsPage/ManageEventsPage";
 import AdminRoute from "../Components/AdminRoute/AdminRoute";
 import ManageUsersPage from "../Pages/ManageUsersPage/ManageUsersPage";
+import EventDetailsPage from "../Pages/EventDetailsPage/EventDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/event/:id",
+        element: <EventDetailsPage />,
       },
       {
         path: "/my-profile",
