@@ -1,3 +1,5 @@
+import features from "/features.svg";
+
 const AboutPage = () => {
   return (
     <div className="min-h-screen bg-background p-8">
@@ -8,7 +10,7 @@ const AboutPage = () => {
 
         <div className="space-y-6">
           <section>
-            <h2 className="font-semibold mb-4 text-primary">
+            <h2 className="font-semibold text-primary">
               Welcome to Our Platform
             </h2>
             <p className="text-secondary text-sm text-justify">
@@ -22,14 +24,21 @@ const AboutPage = () => {
           </section>
 
           <section>
-            <h2 className="font-semibold mb-4 text-primary">Key Features</h2>
-            <ul className="list-disc list-inside space-y-2 text-secondary text-sm">
-              <li>Add events with detailed information.</li>
-              <li>Update or modify existing events.</li>
-              <li>View all events in a clean and organized layout.</li>
-              <li>Delete events that are no longer needed.</li>
-              <li>Admin approval system to ensure event quality.</li>
-            </ul>
+            <h2 className="font-semibold text-primary">Key Features</h2>
+            <div className="flex items-center justify-between">
+              <ul className="list-disc list-inside space-y-2 text-secondary text-sm">
+                <li>Add events with detailed information.</li>
+                <li>Update or modify existing events.</li>
+                <li>View all events in a clean and organized layout.</li>
+                <li>Delete events that are no longer needed.</li>
+                <li>Admin approval system to ensure event quality.</li>
+              </ul>
+              <img
+                className="w-1/2 h-[300px] hidden md:block"
+                src={features}
+                alt="features"
+              />
+            </div>
           </section>
 
           <section>
