@@ -3,7 +3,7 @@ import PageTitle from "../../Components/PageTitle/PageTitle";
 import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
 import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import { successAlert } from "../../Components/Alerts/successAlert";
@@ -19,6 +19,7 @@ type Inputs = {
 
 const RegisterPage = () => {
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -61,6 +62,7 @@ const RegisterPage = () => {
               "Registration successful",
               "You have successfully registered."
             );
+            navigate("/");
           })
           .catch((err) => {
             errorAlert("Registration failed", err.message);
@@ -81,7 +83,7 @@ const RegisterPage = () => {
       <div className="w-full flex items-center p-4 justify-center min-h-screen">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-sm w-full px-8 py-16 space-y-4 rounded-md shadow-md border-common"
+          className="max-w-sm w-full px-8 dark:bg-background2 py-16 space-y-4 rounded-md shadow-md border-common"
         >
           <h1 className="text-primary font-bold">Register</h1>
           <label className="form-control w-full">
