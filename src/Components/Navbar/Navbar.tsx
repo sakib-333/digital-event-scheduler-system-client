@@ -6,9 +6,14 @@ import useTheme from "../../Hooks/useTheme/useTheme";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import defaultUser from "/defaultUser.svg";
 import { CgProfile } from "react-icons/cg";
-import { MdManageHistory, MdOutlineEventNote, MdPostAdd } from "react-icons/md";
+import {
+  MdManageHistory,
+  MdOutlineEventNote,
+  MdOutlineHome,
+  MdPostAdd,
+} from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { FaHome, FaUsersCog } from "react-icons/fa";
+import { FaUsersGear } from "react-icons/fa6";
 
 const Navbar = () => {
   const { theme } = useTheme();
@@ -105,26 +110,33 @@ const Navbar = () => {
                   aria-label="close sidebar"
                   className="drawer-overlay"
                 ></label>
-                <ul className="menu bg-background2 text-primary min-h-full w-48 p-4">
-                  <li className="text-base md:text-lg font-bold">
+                <ul className="menu bg-background2 text-primary min-h-full w-52 p-4">
+                  <li className="text-base md:text-lg font-bold text-justify">
                     Event Scheduler
                   </li>
-                  <div className="flex gap-1 mt-1">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src={user.photoURL || defaultUser}
-                      alt="profile"
-                    />
-                    <div className="truncate">
-                      <p className="text-[9px] text-secondary capitalize text-center">
-                        {user?.userType}
-                      </p>
-                      <h1 className="text-xs">{user.displayName}</h1>
+                  <div className="flex gap-1 items-center justify-between my-1">
+                    <div className="flex items-center gap-1">
+                      <img
+                        className="w-8 h-8 rounded-full"
+                        src={user.photoURL || defaultUser}
+                        alt="profile"
+                      />
+                      <div className="truncate">
+                        <h1 className="text-primary text-[9px] font-bold">
+                          {user.displayName}
+                        </h1>
+                        <p className="text-[9px] -mt-2 text-secondary">
+                          {user.email}
+                        </p>
+                      </div>
                     </div>
+                    <h1 className="px-1 text-[8px] text-black rounded capitalize bg-green-300 h-fit">
+                      {user?.userType}
+                    </h1>
                   </div>
                   <li>
                     <NavLink to={"/"} className="nav-link">
-                      <FaHome />
+                      <MdOutlineHome />
                       <span>Home</span>
                     </NavLink>
                   </li>
@@ -155,7 +167,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <NavLink to={"/manage-users"} className="nav-link">
-                          <FaUsersCog />
+                          <FaUsersGear />
                           <span>Manage Users</span>
                         </NavLink>
                       </li>
