@@ -31,7 +31,7 @@ const LoginPage = () => {
       <div className="w-full flex items-center p-4 justify-center min-h-screen">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-sm w-full px-8 py-16 space-y-4 rounded-md shadow-md border-common"
+          className="max-w-sm w-full px-8 py-16 space-y-4 dark:bg-background2 rounded-md shadow-md border-common"
         >
           <h1 className="text-primary font-bold">Login</h1>
           <label className="form-control w-full">
