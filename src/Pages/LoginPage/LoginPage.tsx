@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import usePassShowing from "../../Hooks/usePassShowing/usePassShowing";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
@@ -17,12 +17,15 @@ const LoginPage = () => {
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
   const { signinWithEmailPassword } = useAuth();
+  const { state } = useLocation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
     signinWithEmailPassword(data.email, data.password)
-      .then(() =>
-        successAlert("Login successful", "You have successfully logged in")
-      )
+      .then(() => {
+        successAlert("Login successful", "You have successfully logged in");
+        navigate(state?.from || "/");
+      })
       .catch((err) => console.log(err));
   };
   return (
