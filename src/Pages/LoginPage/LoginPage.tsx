@@ -6,6 +6,7 @@ import useGoogleSignin from "../../Hooks/useGoogleSignin/useGoogleSignin";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import { successAlert } from "../../Components/Alerts/successAlert";
+import { errorAlert } from "../../Components/Alerts/errorAlert";
 
 type Inputs = {
   email: string;
@@ -16,7 +17,7 @@ const LoginPage = () => {
   const { register, handleSubmit } = useForm<Inputs>();
   const { show, handleToggle } = usePassShowing();
   const googleSignin = useGoogleSignin();
-  const { signinWithEmailPassword } = useAuth();
+  const { signinWithEmailPassword, setUserLoading } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -26,7 +27,8 @@ const LoginPage = () => {
         successAlert("Login successful", "You have successfully logged in");
         navigate(state?.from || "/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => errorAlert("Login failed", err.message))
+      .finally(() => setUserLoading(false));
   };
   return (
     <>

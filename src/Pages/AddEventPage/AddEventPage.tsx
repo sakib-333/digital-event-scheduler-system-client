@@ -54,11 +54,13 @@ const AddEventPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="form-control w-full">
             <select
-              defaultValue="Select category"
+              defaultValue=""
               {...register("participant", { required: true })}
               className="input border-common text-secondary dark:bg-background2 rounded-md bg-background file-input-sm w-full"
             >
-              <option disabled={true}>Select participant</option>
+              <option value={""} disabled={true}>
+                Select participant
+              </option>
               <option value={"teachers"}>Teachers</option>
               <option value={"students"}>Students</option>
               <option value={"anyone"}>Anyone</option>
@@ -66,11 +68,13 @@ const AddEventPage = () => {
           </label>
           <label className="form-control w-full">
             <select
-              defaultValue="Select category"
+              defaultValue=""
               {...register("category", { required: true })}
               className="input border-common text-secondary dark:bg-background2 rounded-md bg-background file-input-sm w-full"
             >
-              <option disabled={true}>Select category</option>
+              <option value={""} disabled={true}>
+                Select category
+              </option>
               <option value={"exam"}>Exam</option>
               <option value={"fest"}>Fest</option>
               <option value={"tour"}>Tour</option>
@@ -92,6 +96,7 @@ const AddEventPage = () => {
             <input
               {...register("date", { required: true })}
               type="date"
+              placeholder="Select date"
               className="input border-common dark:bg-background2 text-secondary rounded-md bg-background file-input-sm w-full"
             />
           </label>
