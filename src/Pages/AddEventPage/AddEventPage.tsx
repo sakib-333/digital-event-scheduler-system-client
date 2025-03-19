@@ -1,5 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import { useState } from "react";
+import { successAlert } from "../../Components/Alerts/successAlert";
+import usePhotoUpload from "../../Hooks/usePhotoUpload/usePhotoUpload";
+
+const photoURL = "https://i.ibb.co.com/FLWX4bfj/Event-Default-Logo.png";
 
 type Inputs = {
   title: string;
@@ -11,12 +19,51 @@ type Inputs = {
   date: string;
 };
 
-const AddEventPage = () => {
-  const { register, handleSubmit } = useForm<Inputs>();
+type AddEventData = {
+  eventInfo: Inputs;
+  email: string | null | undefined;
+};
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+const AddEventPage = () => {
+  const [uploading, setUploading] = useState<boolean>(false);
+  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const handlePhotoUpload = usePhotoUpload();
+  const mutation = useMutation({
+    mutationFn: (data: AddEventData) => axiosSecure.post("/add-event", data),
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setUploading(true);
+
+    if (data.photo[0]) {
+      const imgURL = await handlePhotoUpload(data.photo[0], photoURL);
+
+      const newData = {
+        eventInfo: { ...data, photo: imgURL, author: user?.email },
+        email: user?.email,
+      };
+      mutation.mutate(newData);
+    } else {
+      const newData = {
+        eventInfo: { ...data, photo: photoURL, author: user?.email },
+        email: user?.email,
+      };
+      mutation.mutate(newData);
+    }
+
+    reset();
+
+    setUploading(false);
   };
+
+  mutation.isSuccess &&
+    !uploading &&
+    successAlert(
+      "Success",
+      "Event added successfully. An admin will approve your event soon."
+    );
 
   return (
     <div className="primary-width min-h-screen flex items-center justify-center mt-4 mx-auto">
@@ -101,7 +148,14 @@ const AddEventPage = () => {
             />
           </label>
         </div>
-        <button className="primary-btn outline-btn w-full">Add Event</button>
+        {uploading || mutation.isPending ? (
+          <button className="primary-btn outline-btn w-full cursor-not-allowed flex items-center justify-center gap-1">
+            <span className="loading loading-spinner loading-xs"></span>
+            Loading
+          </button>
+        ) : (
+          <button className="primary-btn outline-btn w-full">Add Event</button>
+        )}
       </form>
     </div>
   );
