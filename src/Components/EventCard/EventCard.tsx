@@ -4,6 +4,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import * as motion from "motion/react-client";
 import { springAnimation } from "../../Animation/springAnimation";
+import { TbCategory } from "react-icons/tb";
 
 const EventCard = () => {
   return (
@@ -31,6 +32,9 @@ const EventCard = () => {
         </p>
       </div>
       <div className="px-2 text-xs text-secondary space-y-1">
+        <p className="flex items-center gap-1 capitalize">
+          <TbCategory />:<span>Exam</span>
+        </p>
         <p className="flex items-center gap-1">
           <SlCalender />:<span>24/02/2025</span>
         </p>
