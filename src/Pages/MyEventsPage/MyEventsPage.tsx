@@ -9,7 +9,11 @@ import { Link } from "react-router-dom";
 const MyEventsPage = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const { data: myEvents = [], isLoading } = useQuery({
+  const {
+    data: myEvents = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["myEvents", user],
     queryFn: async () => {
       const res = await axiosSecure.post("/my-events", { email: user?.email });
@@ -40,7 +44,7 @@ const MyEventsPage = () => {
       <PageTitle title="My Events" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4">
         {myEvents.map((event: Event) => (
-          <MyEventCard key={event._id} event={event} />
+          <MyEventCard key={event._id} event={event} refetch={refetch} />
         ))}
       </div>
     </div>

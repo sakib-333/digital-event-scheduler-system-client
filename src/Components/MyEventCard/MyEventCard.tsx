@@ -3,6 +3,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { TbCategory } from "react-icons/tb";
 import { formatDate } from "../../Utils/formatDate";
+import useEventDelete from "../../Hooks/useEventDelete/useEventDelete";
 
 export type Event = {
   _id: string;
@@ -16,9 +17,12 @@ export type Event = {
 
 interface MyEventCardProps {
   event: Event;
+  refetch: () => void;
 }
 
-const MyEventCard = ({ event }: MyEventCardProps) => {
+const MyEventCard = ({ event, refetch }: MyEventCardProps) => {
+  const handleEventDelete = useEventDelete();
+
   return (
     <div className="max-w-sm w-full group border hover:shadow-lg transition hover:scale-[1.02] border-border rounded-md space-y-2 overflow-hidden">
       <img
@@ -28,7 +32,7 @@ const MyEventCard = ({ event }: MyEventCardProps) => {
       />
       <div className="px-2">
         <h1 className="text-primary font-bold truncate">{event.title}</h1>
-        <p className="text-secondary text-xs text-justify max-h-[64px] overflow-hidden">
+        <p className="text-secondary text-xs text-justify h-[64px] overflow-hidden">
           {event.description}
         </p>
       </div>
@@ -47,7 +51,12 @@ const MyEventCard = ({ event }: MyEventCardProps) => {
         <Link to={`/edit/${event._id}`}>
           <button className="primary-btn outline-btn">Edit</button>
         </Link>
-        <button className="primary-btn outline-btn">Delete</button>
+        <button
+          className="primary-btn outline-btn"
+          onClick={() => handleEventDelete(event._id, refetch)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
