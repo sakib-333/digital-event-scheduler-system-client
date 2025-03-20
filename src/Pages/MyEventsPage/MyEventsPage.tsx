@@ -10,11 +10,12 @@ const MyEventsPage = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const { data: myEvents = [], isLoading } = useQuery({
-    queryKey: ["myEvents"],
+    queryKey: ["myEvents", user],
     queryFn: async () => {
       const res = await axiosSecure.post("/my-events", { email: user?.email });
       return res.data.myEvents;
     },
+    refetchOnMount: true,
   });
 
   if (isLoading) {
