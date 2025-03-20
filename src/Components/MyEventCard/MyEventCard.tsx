@@ -22,7 +22,7 @@ const MyEventCard = ({ event }: MyEventCardProps) => {
   return (
     <div className="max-w-sm w-full group border hover:shadow-lg transition hover:scale-[1.02] border-border rounded-md space-y-2 overflow-hidden">
       <img
-        className="w-full max-h-[180px] rounded-t-md object-cover"
+        className="w-full max-h-[180px] h-full rounded-t-md object-cover"
         src={event.photo}
         alt="logo"
       />

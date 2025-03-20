@@ -1,5 +1,15 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import { useParams } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import useAxiosSecure from "../../Hooks/useAxios/useAxiosSecure";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { formatDate } from "../../Utils/formatDate";
+import { useState } from "react";
+import usePhotoUpload from "../../Hooks/usePhotoUpload/usePhotoUpload";
+import { successAlert } from "../../Components/Alerts/successAlert";
+const photoURL = "https://i.ibb.co.com/FLWX4bfj/Event-Default-Logo.png";
 
 type Inputs = {
   title: string;
@@ -11,12 +21,75 @@ type Inputs = {
   date: string;
 };
 
+type EditEventData = {
+  updatedEvent: Inputs;
+  email: string | null | undefined;
+  eventID: string | null;
+};
+
 const EditEventPage = () => {
   const { register, handleSubmit } = useForm<Inputs>();
+  const { id: eventID = null } = useParams();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const {
+    data: myEvent,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["myEvent", eventID],
+    queryFn: async () => {
+      const res = await axiosSecure.post("/my-event", {
+        email: user?.email,
+        eventID,
+      });
+      return res.data.myEvent;
+    },
+    refetchOnMount: true,
+  });
+
+  const [uploading, setUploading] = useState<boolean>(false);
+  const handlePhotoUpload = usePhotoUpload();
+
+  const mutation = useMutation({
+    mutationFn: (data: EditEventData) => axiosSecure.post("/edit-event", data),
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setUploading(true);
+
+    if (data.photo[0]) {
+      const imgURL = await handlePhotoUpload(data.photo[0], photoURL);
+
+      const updatedData = {
+        updatedEvent: { ...data, photo: imgURL, updatedAt: new Date() },
+        eventID,
+        email: user?.email,
+      };
+      mutation.mutate(updatedData);
+    } else {
+      const updatedData = {
+        updatedEvent: { ...data, photo: myEvent?.photo, updatedAt: new Date() },
+        eventID,
+        email: user?.email,
+      };
+
+      mutation.mutate(updatedData);
+    }
+
+    setUploading(false);
+    refetch();
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  mutation.isSuccess &&
+    !uploading &&
+    successAlert("Success", "Event updated successfully.");
+
   return (
     <div className="primary-width min-h-screen flex items-center justify-center mt-4 mx-auto">
       <PageTitle title="Edit" />
@@ -30,6 +103,7 @@ const EditEventPage = () => {
         <label className="form-control w-full">
           <input
             type="text"
+            defaultValue={myEvent?.title}
             placeholder="Event title"
             {...register("title", { required: true })}
             className="input dark:bg-background2 bg-background focus:border-common text-secondary border-common rounded-md input-sm w-full"
@@ -38,6 +112,7 @@ const EditEventPage = () => {
         <label className="form-control w-full">
           <textarea
             placeholder="Event description"
+            defaultValue={myEvent?.description}
             {...register("description", { required: true })}
             className="input dark:bg-background2 bg-background max-h-28 h-full focus:border-common text-secondary border-common rounded-md input-sm w-full"
           ></textarea>
@@ -53,7 +128,7 @@ const EditEventPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="form-control w-full">
             <select
-              defaultValue="Select category"
+              defaultValue={myEvent?.participant}
               {...register("participant", { required: true })}
               className="input border-common text-secondary dark:bg-background2 rounded-md bg-background file-input-sm w-full"
             >
@@ -65,7 +140,7 @@ const EditEventPage = () => {
           </label>
           <label className="form-control w-full">
             <select
-              defaultValue="Select category"
+              defaultValue={myEvent?.category}
               {...register("category", { required: true })}
               className="input border-common text-secondary dark:bg-background2 rounded-md bg-background file-input-sm w-full"
             >
@@ -83,6 +158,7 @@ const EditEventPage = () => {
             <input
               type="text"
               placeholder="Location"
+              defaultValue={myEvent?.location}
               className="input border-common dark:bg-background2 text-secondary rounded-md bg-background file-input-sm w-full"
               {...register("location", { required: true })}
             />
@@ -91,11 +167,19 @@ const EditEventPage = () => {
             <input
               {...register("date", { required: true })}
               type="date"
+              defaultValue={formatDate(myEvent?.date)}
               className="input border-common dark:bg-background2 text-secondary rounded-md bg-background file-input-sm w-full"
             />
           </label>
         </div>
-        <button className="primary-btn outline-btn w-full">Save Event</button>
+        {uploading || mutation.isPending ? (
+          <button className="primary-btn outline-btn w-full cursor-not-allowed flex items-center justify-center gap-1">
+            <span className="loading loading-spinner loading-xs"></span>
+            Loading
+          </button>
+        ) : (
+          <button className="primary-btn outline-btn w-full">Save Event</button>
+        )}
       </form>
     </div>
   );
