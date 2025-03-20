@@ -47,7 +47,7 @@ const MyEventCard = ({ event, refetch }: MyEventCardProps) => {
           <CiLocationOn />:<span>{event.location}</span>
         </p>
       </div>
-      <div className="px-2 pb-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition">
+      <div className="px-2 pb-4 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition">
         <Link to={`/edit/${event._id}`}>
           <button className="primary-btn outline-btn">Edit</button>
         </Link>
