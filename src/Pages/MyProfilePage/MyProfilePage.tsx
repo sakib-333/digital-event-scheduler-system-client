@@ -34,7 +34,7 @@ const MyProfilePage = () => {
                 alt="profile"
               />
               <div>
-                <p className="text-xs text-secondary capitalize">
+                <p className="text-xs capitalize w-fit p-1 text-black rounded bg-green-300">
                   {myInfo.userType}
                 </p>
                 <h1 className="text-primary">{user?.displayName}</h1>
@@ -57,7 +57,11 @@ const MyProfilePage = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{myInfo.totalPosts}</td>
+                  <td>
+                    <Link to={"/my-events"} className="hover:underline">
+                      {myInfo.totalPosts}
+                    </Link>
+                  </td>
                   <td>{myInfo.approved}</td>
                   <td>{myInfo.totalPosts - myInfo.approved}</td>
                 </tr>
