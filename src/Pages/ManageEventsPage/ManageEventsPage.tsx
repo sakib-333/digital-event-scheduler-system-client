@@ -1,9 +1,39 @@
 import { Link } from "react-router-dom";
 import PageTitle from "../../Components/PageTitle/PageTitle";
+import useDataFetch from "../../Hooks/useDataFetch/useDataFetch";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { formatDate } from "../../Utils/formatDate";
 
-const events = [1, 2, 3, 4, 5, 6, 7, 8];
+type Event = {
+  _id: string;
+  title: string;
+  category: string;
+  date: string;
+  location: string;
+  status: "pending" | "approved";
+};
 
 const ManageEventsPage = () => {
+  const { data, isLoading } = useDataFetch(
+    "manageEvents",
+    "get-all-events-for-admin",
+    {}
+  );
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!data.acknowledged) {
+    return (
+      <div className="primary-width mt-4 mx-auto min-h-screen flex flex-col items-center justify-center gap-4">
+        <h1 className="text-2xl md:text-3xl text-primary font-bold">
+          No event found
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="primary-width mt-4 mx-auto">
       <PageTitle title="Manage Events" />
@@ -22,20 +52,20 @@ const ManageEventsPage = () => {
             </tr>
           </thead>
           <tbody className="text-secondary">
-            {events.map((event, indx) => (
+            {data.allEvents.map((event: Event, indx: number) => (
               <tr
                 className="hover:bg-background2 dark:hover:bg-background"
-                key={event}
+                key={event._id}
               >
                 <th>{indx + 1}</th>
-                <td>4.2 Semester Comming</td>
-                <td>Exam</td>
-                <td>12/03/2025</td>
-                <td>Academic building</td>
-                <td>{indx % 2 ? "Approved" : "Pending"}</td>
+                <td>{event.title}</td>
+                <td>{event.category}</td>
+                <td>{formatDate(event.date) || ""}</td>
+                <td>{event.location}</td>
+                <td>{event.status}</td>
                 <td>
                   <Link
-                    to={`/manage-event/${indx}`}
+                    to={`/manage-event/${event._id}`}
                     className="hover:underline"
                   >
                     Details
