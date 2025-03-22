@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useDataFetch from "../../Hooks/useDataFetch/useDataFetch";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
@@ -7,18 +7,27 @@ import { formatDate } from "../../Utils/formatDate";
 type Event = {
   _id: string;
   title: string;
+  description: string;
+  photo: string;
   category: string;
-  date: string;
   location: string;
+  participant: string;
+  date: string;
+  author: string;
   status: "pending" | "approved";
 };
 
 const ManageEventsPage = () => {
+  const navigate = useNavigate();
   const { data, isLoading } = useDataFetch(
     "manageEvents",
     "get-all-events-for-admin",
     {}
   );
+
+  const handleEventManage = (event: Event) => {
+    navigate(`/manage-event/${event._id}`, { state: { event } });
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -64,12 +73,12 @@ const ManageEventsPage = () => {
                 <td>{event.location}</td>
                 <td>{event.status}</td>
                 <td>
-                  <Link
-                    to={`/manage-event/${event._id}`}
+                  <button
                     className="hover:underline"
+                    onClick={() => handleEventManage(event)}
                   >
                     Details
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}
