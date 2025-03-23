@@ -1,33 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useDataFetch from "../../Hooks/useDataFetch/useDataFetch";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import { formatDate } from "../../Utils/formatDate";
+import { useEffect } from "react";
 
 type Event = {
   _id: string;
   title: string;
-  description: string;
-  photo: string;
   category: string;
   location: string;
-  participant: string;
   date: string;
-  author: string;
   status: "pending" | "approved";
 };
 
 const ManageEventsPage = () => {
-  const navigate = useNavigate();
-  const { data, isLoading } = useDataFetch(
+  const { data, isLoading, isFetching, refetch } = useDataFetch(
     "manageEvents",
     "get-all-events-for-admin",
     {}
   );
 
-  const handleEventManage = (event: Event) => {
-    navigate(`/manage-event/${event._id}`, { state: { event } });
-  };
+  useEffect(() => {
+    if (!isFetching) {
+      refetch();
+    }
+  }, [isFetching]);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -73,12 +71,7 @@ const ManageEventsPage = () => {
                 <td>{event.location}</td>
                 <td>{event.status}</td>
                 <td>
-                  <button
-                    className="hover:underline"
-                    onClick={() => handleEventManage(event)}
-                  >
-                    Details
-                  </button>
+                  <Link to={`/manage-event/${event._id}`}>Details</Link>
                 </td>
               </tr>
             ))}

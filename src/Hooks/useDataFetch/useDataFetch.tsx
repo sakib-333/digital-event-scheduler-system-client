@@ -5,8 +5,13 @@ import useAxiosSecure from "../useAxios/useAxiosSecure";
 const useDataFetch = (queryKey: string, route: string, fetchInfo: any) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data = [], isLoading } = useQuery({
-    queryKey: [queryKey],
+  const {
+    data = [],
+    isLoading,
+    refetch,
+    isFetching,
+  } = useQuery({
+    queryKey: [queryKey, fetchInfo],
     queryFn: async () => {
       const res = await axiosSecure.post(`/${route}`, {
         email: user?.email,
@@ -14,9 +19,10 @@ const useDataFetch = (queryKey: string, route: string, fetchInfo: any) => {
       });
       return res.data;
     },
+    refetchOnMount: true,
   });
 
-  return { data, isLoading };
+  return { data, isLoading, refetch, isFetching };
 };
 
 export default useDataFetch;
