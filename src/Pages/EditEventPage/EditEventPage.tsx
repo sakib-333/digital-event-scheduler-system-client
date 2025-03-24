@@ -173,7 +173,10 @@ const EditEventPage = () => {
           </label>
         </div>
         {uploading || mutation.isPending ? (
-          <button className="primary-btn outline-btn w-full cursor-not-allowed flex items-center justify-center gap-1">
+          <button
+            disabled={uploading || mutation.isPending}
+            className="primary-btn outline-btn w-full cursor-not-allowed flex items-center justify-center gap-1"
+          >
             <span className="loading loading-spinner loading-xs"></span>
             Loading
           </button>

@@ -71,6 +71,7 @@ const ManageEventPage = () => {
       <div className="flex justify-center gap-2 p-4">
         <button
           onClick={() => handleApproveEvent(data.event._id)}
+          disabled={data?.event?.status === "approved"}
           className={`primary-btn text-black bg-green-300 flex items-center gap-1 ${
             data?.event?.status === "approved" && "cursor-not-allowed"
           }`}
