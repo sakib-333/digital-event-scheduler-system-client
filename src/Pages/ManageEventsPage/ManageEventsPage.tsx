@@ -25,7 +25,7 @@ const ManageEventsPage = () => {
     if (!isFetching) {
       refetch();
     }
-  }, [isFetching]);
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
