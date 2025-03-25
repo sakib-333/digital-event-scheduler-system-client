@@ -14,7 +14,7 @@ type Event = {
   participant: string;
   date: string;
   author: string;
-  status: "pending" | "approved";
+  status: string;
 };
 
 interface EventDetailsProps {
