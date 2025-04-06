@@ -4,6 +4,7 @@ import PageTitle from "../../Components/PageTitle/PageTitle";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
+import NoDataFound from "../../Components/NoDataFound/NoDataFound";
 
 export interface EventCardInterface {
   category: string;
@@ -69,13 +70,7 @@ const EventsPage = () => {
             </label>
           </div>
           {isLoading && <LoadingSpinner />}
-          {!events.length && (
-            <div className="min-h-screen flex items-center justify-center">
-              <h1 className="text-2xl md:text-3xl text-primary font-bold">
-                No data found
-              </h1>
-            </div>
-          )}
+          {!events.length && <NoDataFound />}
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4">
             {events.map((event: EventCardInterface) => (
               <EventCard key={event._id} event={event} />

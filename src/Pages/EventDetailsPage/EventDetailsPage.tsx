@@ -2,11 +2,28 @@ import { MdAddAlert } from "react-icons/md";
 import EventDetails from "../../Components/EventDetails/EventDetails";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import useAuth from "../../Hooks/useAuth/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxios/useAxiosPublic";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import NoDataFound from "../../Components/NoDataFound/NoDataFound";
 
 const EventDetailsPage = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { data: event, isLoading } = useQuery({
+    queryKey: ["eventDetails"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/get-event-by-id?id=${id}`);
+      if (res.data.acknowledged) {
+        return res.data.event;
+      }
+      return res.data.message;
+    },
+    refetchOnMount: true,
+  });
 
   const handlegetAlert = () => {
     if (!user) {
@@ -15,18 +32,13 @@ const EventDetailsPage = () => {
     // Send alert to currently logged in user email.
   };
 
-  const event = {
-    _id: "67da573ffc985ee78263989a",
-    title: "Tour",
-    description: "Test Description",
-    photo: "https://i.ibb.co.com/FLWX4bfj/Event-Default-Logo.png",
-    category: "tour",
-    location: "Cox's Bazar",
-    participant: "students",
-    date: "2025-04-01",
-    author: "moeen@gmail.com",
-    status: "pending",
-  };
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (event === "No data found") {
+    return <NoDataFound />;
+  }
 
   return (
     <div className="max-w-screen-md mx-auto dark:bg-background2">
