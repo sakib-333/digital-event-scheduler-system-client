@@ -5,8 +5,14 @@ import { Link } from "react-router-dom";
 import * as motion from "motion/react-client";
 import { springAnimation } from "../../Animation/springAnimation";
 import { TbCategory } from "react-icons/tb";
+import { EventCardInterface } from "../../Pages/EventsPage/EventsPage";
+import { formatDate } from "../../Utils/formatDate";
 
-const EventCard = () => {
+interface EventCardProps {
+  event: EventCardInterface;
+}
+
+const EventCard = ({ event }: EventCardProps) => {
   return (
     <motion.div
       variants={springAnimation()}
@@ -17,33 +23,28 @@ const EventCard = () => {
     >
       <img
         className="w-full max-h-[180px] rounded-t-md object-cover"
-        src={EventDefaultLogo}
+        src={event.photo || EventDefaultLogo}
         alt="logo"
       />
       <div className="px-2">
-        <h1 className="text-primary font-bold truncate">
-          Lorem ipsum dolor sit amet.
-        </h1>
+        <h1 className="text-primary font-bold truncate">{event.title}</h1>
         <p className="text-secondary text-xs text-justify max-h-[64px] overflow-hidden">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto culpa
-          pariatur repellendus. Dicta qui quibusdam, velit corporis hic fugiat
-          dolorem nesciunt minima delectus dolor labore. Aliquid commodi porro
-          labore sunt!
+          {event.description}
         </p>
       </div>
       <div className="px-2 text-xs text-secondary space-y-1">
         <p className="flex items-center gap-1 capitalize">
-          <TbCategory />:<span>Exam</span>
+          <TbCategory />:<span className="capitalize">{event.category}</span>
         </p>
         <p className="flex items-center gap-1">
-          <SlCalender />:<span>24/02/2025</span>
+          <SlCalender />:<span>{formatDate(event.date)}</span>
         </p>
         <p className="flex items-center gap-1">
-          <CiLocationOn />:<span>CSE Dept. Room-408</span>
+          <CiLocationOn />:<span>{event.location}</span>
         </p>
       </div>
       <div className="px-2 pb-2 flex justify-end">
-        <Link to={`/event/1`}>
+        <Link to={`/event/${event._id}`}>
           <button className="primary-btn outline-btn">View Details</button>
         </Link>
       </div>
