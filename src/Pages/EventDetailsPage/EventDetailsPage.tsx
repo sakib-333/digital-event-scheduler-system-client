@@ -31,6 +31,8 @@ const EventDetailsPage = () => {
     refetchOnMount: true,
   });
 
+  console.log(event);
+
   const handlegetAlert = () => {
     if (!user) {
       return navigate("/login");

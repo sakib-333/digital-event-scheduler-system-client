@@ -1,7 +1,7 @@
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn } from "react-icons/ci";
 import { BiCategory } from "react-icons/bi";
-import { FaPeopleGroup } from "react-icons/fa6";
+import { FaPeopleGroup, FaUser } from "react-icons/fa6";
 import { formatDate } from "../../Utils/formatDate";
 
 type Event = {
@@ -49,6 +49,11 @@ const EventDetails = ({ event }: EventDetailsProps) => {
         </p>
         <p className="flex items-center gap-1">
           <FaPeopleGroup />:<span>{event.participant}</span>
+        </p>
+      </div>
+      <div>
+        <p className="text-center text-xs text-secondary flex justify-center items-center gap-1">
+          <FaUser />: {event.author}
         </p>
       </div>
     </div>
