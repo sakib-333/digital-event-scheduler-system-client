@@ -17,6 +17,7 @@ import ManageUsersPage from "../Pages/ManageUsersPage/ManageUsersPage";
 import EventDetailsPage from "../Pages/EventDetailsPage/EventDetailsPage";
 import EditEventPage from "../Pages/EditEventPage/EditEventPage";
 import ManageEventPage from "../Pages/ManageEventPage/ManageEventPage";
+import AskAlicePage from "../Pages/AskAlicePage/AskAlicePage";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/events",
         element: <EventsPage />,
+      },
+      {
+        path: "/ask-alice",
+        element: <AskAlicePage />,
       },
       {
         path: "/contact",
