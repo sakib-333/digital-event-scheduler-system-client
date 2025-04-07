@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoIosSend } from "react-icons/io";
 import Markdown from "react-markdown";
+import PageTitle from "../../Components/PageTitle/PageTitle";
 
 type Inputs = {
   message: string;
@@ -30,6 +31,7 @@ const AskAlicePage = () => {
 
   return (
     <div className="primary-width mt-4 max-w-screen-lg mx-auto">
+      <PageTitle title="Ask Alice" />
       <div className="mb-4 space-y-3 text-primary">
         {chat.map((c, indx) => (
           <p
